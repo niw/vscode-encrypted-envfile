@@ -1,0 +1,75 @@
+{
+  "name": "encrypted-envfile",
+  "displayName": "Encrypted Envfile",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niw/vscode-encrypted-dotfile.git"
+  },
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Debuggers"
+  ],
+  "activationEvents": [
+    "onDebugResolve"
+  ],
+  "contributes": {
+    "debuggers": [
+      {
+        "type": "*",
+        "configurationAttributes": {
+          "launch": {
+            "properties": {
+              "encryptedEnvFile": {
+                "type": "string",
+                "description": "Path to the encrypted .env file.",
+                "default": "${workspaceFolder}/.env.encrypted"
+              },
+              "enctyptedEnvFileDecryptProgram": {
+                "type": "string",
+                "description": "Program for decrypting the encrypted .env file.",
+                "default": "gpg"
+              },
+              "enctyptedEnvFileDecryptArgs": {
+                "type": "array",
+                "description": "Program arguments for decrypting the encrypted .env file.",
+                "items": {
+                  "type": "string"
+                },
+                "default": [
+                  "--decrypt",
+                  "${encryptedEnvFile}"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.104.0",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.34.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
